@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fiyat Hesaplama</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">    
+</head>
+<body>
+
+<div class="container" id="main-div">
+  <div id="form-div">
+    <br>
+    <form onsubmit="return false" id="main-form">
+      <label for="satis-inp">Satış TL</label>
+      <input id="satis-inp" type="number" required class="form-control" value="0" step="any" name="satis-inp">
+      <label for="alis-inp">Alış TL</label>
+      <input id="alis-inp" type="number" required class="form-control" value="0" step="any" name="alis-inp">
+      <label for="kargo-inp">Kargo TL</label>
+      <input id="kargo-inp" type="number" required class="form-control" value="0" step="any" name="kargo-inp">
+      <label for="paketleme-inp">Paketleme TL</label>
+      <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">
+      <label for="komisyon-yuzdesi-inp">Komisyon %</label>
+      <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
+      <label for="iade-yuzdesi-inp">İade %</label>
+      <input id="iade-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="iade-yuzdesi-inp">
+      <label for="ceza-yuzdesi-inp">Ceza %</label>
+      <input id="ceza-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="ceza-yuzdesi-inp">
+      <label for="giderfaturasi-yuzdesi-inp">Gider Faturası %</label>
+      <input id="giderfaturasi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="giderfaturasi-yuzdesi-inp">
+      <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
+      <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="gelirvergisi-yuzdesi-inp">
+      <label for="kdv-yuzdesi-inp">KDV %</label>
+      <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="kdv-yuzdesi-inp">
+      <br>
+      <button type="submit" class="btn btn-secondary btn-lg btn-block" form="main-form" id="hesapla-btn">HESAPLA</button>
+    </form>  
+    <br>  
+  </div>   
+  <div id="hesapla-div">
+    <label for="hesapla-text">Sonuç</label> 
+    <textarea id="hesapla-text" class="form-control" rows="20" name="hesapla-text"></textarea>
+    <br>
+  </div>  
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  document.addEventListener('DOMContentLoaded', event => {
+
+    let formDiv = document.querySelector('#form-div');
+    let mainForm = document.querySelector('#main-form');
+    let hesaplaBtn = document.querySelector('#hesapla-btn');
+    let hesaplaText = document.querySelector('#hesapla-text');         
+
+    /*
+    formDiv.addEventListener('click', function() {
+      this.scrollIntoView();               
+    });  
+    */
+
+    hesaplaBtn.addEventListener('click', function() {
+      if (mainForm.checkValidity()) { 
+        hesaplaText.value = '';  
+        let satis = Number(document.querySelector('#satis-inp').value);
+        let alis = Number(document.querySelector('#alis-inp').value);
+        let kargo =Number( document.querySelector('#kargo-inp').value);
+        let paketleme = Number(document.querySelector('#paketleme-inp').value);
+        let komisyonYuzdesi = Number(document.querySelector('#komisyon-yuzdesi-inp').value);
+        let iadeYuzdesi = Number(document.querySelector('#iade-yuzdesi-inp').value);
+        let cezaYuzdesi = Number(document.querySelector('#ceza-yuzdesi-inp').value);
+        let giderfaturasiYuzdesi = Number(document.querySelector('#giderfaturasi-yuzdesi-inp').value);    
+        let gelirvergisiYuzdesi = Number(document.querySelector('#gelirvergisi-yuzdesi-inp').value);
+        let kdvYuzdesi = Number(document.querySelector('#kdv-yuzdesi-inp').value);        
+        
+        let komisyon = 0, iade = 0, ceza = 0, gider = 0, giderFaturasi = 0, gelirvergisi = 0, kdv = 0, kazanc = 0;
+        
+        komisyon = satis * komisyonYuzdesi / 100;
+        iade = satis * iadeYuzdesi / 100;
+        ceza = satis * cezaYuzdesi / 100;
+        gider = alis + kargo + paketleme + komisyon + iade + ceza;
+        giderFaturasi = gider * giderfaturasiYuzdesi / 100;
+        gelirvergisi = ( satis / ( 1 + kdvYuzdesi / 100) - giderFaturasi ) * gelirvergisiYuzdesi / 100;
+        kdv = ( satis - giderFaturasi ) * ( 1 - 1 / ( 1 + kdvYuzdesi / 100) ); 
+        kazanc = satis - gider - gelirvergisi - kdv;         
+       
+        hesaplaText.value += 'Alış: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Kargo: ' + '\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Paketleme: ' + '\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Komisyon: ' + '\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'İade: ' + '\t\t' + iade.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Ceza: ' + '\t\t' + ceza.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += '---------------------------' + '\r\n';
+        hesaplaText.value += 'GİDER: ' + '\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += '(' + 'Faturalı: ' + '\t\t' + giderFaturasi.toFixed(2) + ' TL' + ')' +  '\r\n';
+        hesaplaText.value += '---------------------------' + '\r\n';
+        hesaplaText.value += 'GELİR VERGİSİ: ' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += '---------------------------' + '\r\n';
+        hesaplaText.value += 'KDV: ' + '\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += '---------------------------' + '\r\n';        
+        hesaplaText.value += '\r\n';
+        hesaplaText.value += 'ALIŞ: ' + '\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'SATIŞ: ' + '\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'KAZANÇ: ' + '\t' + kazanc.toFixed(2) + ' TL' + '\r\n';       
+      } 
+    });   
+    
+  });
+})();
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
