@@ -20,16 +20,16 @@
       <input id="kargo-inp" type="number" required class="form-control" value="0" step="any" name="kargo-inp">
       <label for="paketleme-inp">Paketleme TL</label>
       <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">
-      <label for="komisyon-yuzdesi-inp">Komisyon %</label>
+      <label for="komisyon-yuzdesi-inp">Komisyon (Satıştan) %</label>
       <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
-      <label for="digergider-yuzdesi-inp">Diğer Gider % (Reklam, İade, Ceza vb.)</label>
+      <label for="digergider-yuzdesi-inp">Diğer Gider (Satıştan) % (Reklam, İade, Ceza vb.)</label>
       <input id="digergider-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="digergider-yuzdesi-inp">
-      <label for="giderfaturasi-yuzdesi-inp">Gider Faturası %</label>
-      <input id="giderfaturasi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="giderfaturasi-yuzdesi-inp">
+      <label for="alisfaturasi-yuzdesi-inp">Alış Faturası %</label>
+      <input id="alisfaturasi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="alisfaturasi-yuzdesi-inp">
       <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
-      <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="gelirvergisi-yuzdesi-inp">
+      <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="20" step="any" name="gelirvergisi-yuzdesi-inp">
       <label for="kdv-yuzdesi-inp">KDV %</label>
-      <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="kdv-yuzdesi-inp">
+      <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="18" step="any" name="kdv-yuzdesi-inp">
       <br>
       <button type="submit" class="btn btn-secondary btn-lg btn-block" form="main-form" id="hesapla-btn">HESAPLA</button>
     </form>  
@@ -68,7 +68,7 @@
         let paketleme = Number(document.querySelector('#paketleme-inp').value);
         let komisyonYuzdesi = Number(document.querySelector('#komisyon-yuzdesi-inp').value);
         let digergiderYuzdesi = Number(document.querySelector('#digergider-yuzdesi-inp').value);
-        let giderfaturasiYuzdesi = Number(document.querySelector('#giderfaturasi-yuzdesi-inp').value);    
+        let alisfaturasiYuzdesi = Number(document.querySelector('#alisfaturasi-yuzdesi-inp').value);    
         let gelirvergisiYuzdesi = Number(document.querySelector('#gelirvergisi-yuzdesi-inp').value);
         let kdvYuzdesi = Number(document.querySelector('#kdv-yuzdesi-inp').value);        
         
@@ -77,7 +77,7 @@
         komisyon = satis * komisyonYuzdesi / 100;
         digergider = satis * digergiderYuzdesi / 100;        
         gider = alis + kargo + paketleme + komisyon + digergider;
-        giderFaturasi = gider * giderfaturasiYuzdesi / 100;
+        giderFaturasi = alis * alisfaturasiYuzdesi / 100  + kargo + paketleme + komisyon + digergider;
         gelirvergisi = ( satis / ( 1 + kdvYuzdesi / 100) - giderFaturasi ) * gelirvergisiYuzdesi / 100;
         kdv = ( satis - giderFaturasi ) * ( 1 - 1 / ( 1 + kdvYuzdesi / 100) ); 
         kazanc = satis - gider - gelirvergisi - kdv;         
