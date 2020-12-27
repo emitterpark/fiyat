@@ -82,19 +82,19 @@
         kdv = ( satis - giderFaturasi ) * ( 1 - 1 / ( 1 + kdvYuzdesi / 100) ); 
         kazanc = satis - gider - gelirvergisi - kdv;         
        
-        hesaplaText.value += 'Alış: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Kargo: ' + '\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Paketleme: ' + '\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Komisyon: ' + '\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Diğer Gider: ' + '\t' + digergider.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Diğer Gider: ' + '\t\t' + digergider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
-        hesaplaText.value += 'GİDER: ' + '\t\t' + gider.toFixed(2) + ' TL' + '\r\n';        
-        hesaplaText.value += 'GELİR VERGİSİ: ' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KDV: ' + '\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'GELİR VERGİSİ: ' + '\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'KDV: ' + '\t\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
-        hesaplaText.value += 'ALIŞ: ' + '\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'SATIŞ: ' + '\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ: ' + '\t' + kazanc.toFixed(2) + ' TL' + '\r\n';       
+        hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';       
       } 
     });   
     
