@@ -22,10 +22,8 @@
       <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">
       <label for="komisyon-yuzdesi-inp">Komisyon %</label>
       <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
-      <label for="iade-yuzdesi-inp">İade %</label>
-      <input id="iade-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="iade-yuzdesi-inp">
-      <label for="ceza-yuzdesi-inp">Ceza %</label>
-      <input id="ceza-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="ceza-yuzdesi-inp">
+      <label for="digergider-yuzdesi-inp">Diğer Gider % (Reklam, İade, Ceza vb.)</label>
+      <input id="digergider-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="digergider-yuzdesi-inp">
       <label for="giderfaturasi-yuzdesi-inp">Gider Faturası %</label>
       <input id="giderfaturasi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="giderfaturasi-yuzdesi-inp">
       <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
@@ -69,18 +67,16 @@
         let kargo =Number( document.querySelector('#kargo-inp').value);
         let paketleme = Number(document.querySelector('#paketleme-inp').value);
         let komisyonYuzdesi = Number(document.querySelector('#komisyon-yuzdesi-inp').value);
-        let iadeYuzdesi = Number(document.querySelector('#iade-yuzdesi-inp').value);
-        let cezaYuzdesi = Number(document.querySelector('#ceza-yuzdesi-inp').value);
+        let digergiderYuzdesi = Number(document.querySelector('#digergider-yuzdesi-inp').value);
         let giderfaturasiYuzdesi = Number(document.querySelector('#giderfaturasi-yuzdesi-inp').value);    
         let gelirvergisiYuzdesi = Number(document.querySelector('#gelirvergisi-yuzdesi-inp').value);
         let kdvYuzdesi = Number(document.querySelector('#kdv-yuzdesi-inp').value);        
         
-        let komisyon = 0, iade = 0, ceza = 0, gider = 0, giderFaturasi = 0, gelirvergisi = 0, kdv = 0, kazanc = 0;
+        let komisyon = 0, digergider = 0, gider = 0, giderFaturasi = 0, gelirvergisi = 0, kdv = 0, kazanc = 0;
         
         komisyon = satis * komisyonYuzdesi / 100;
-        iade = satis * iadeYuzdesi / 100;
-        ceza = satis * cezaYuzdesi / 100;
-        gider = alis + kargo + paketleme + komisyon + iade + ceza;
+        digergider = satis * digergiderYuzdesi / 100;        
+        gider = alis + kargo + paketleme + komisyon + digergider;
         giderFaturasi = gider * giderfaturasiYuzdesi / 100;
         gelirvergisi = ( satis / ( 1 + kdvYuzdesi / 100) - giderFaturasi ) * gelirvergisiYuzdesi / 100;
         kdv = ( satis - giderFaturasi ) * ( 1 - 1 / ( 1 + kdvYuzdesi / 100) ); 
@@ -90,8 +86,7 @@
         hesaplaText.value += 'Kargo: ' + '\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Paketleme: ' + '\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Komisyon: ' + '\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'İade: ' + '\t\t' + iade.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Ceza: ' + '\t\t' + ceza.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Diğer Gider: ' + '\t' + digergider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '---------------------------' + '\r\n';
         hesaplaText.value += 'GİDER: ' + '\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '(' + 'Faturalı: ' + '\t\t' + giderFaturasi.toFixed(2) + ' TL' + ')' +  '\r\n';
