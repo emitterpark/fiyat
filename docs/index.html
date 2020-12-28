@@ -11,9 +11,7 @@
 <div class="container" id="main-div">
   <div id="form-div">
     <br>
-    <form onsubmit="return false" id="main-form">
-      <label for="satis-inp">Satış TL</label>
-      <input id="satis-inp" type="number" required class="form-control" value="0" step="any" name="satis-inp">
+    <form onsubmit="return false" id="main-form">      
       <label for="alis-inp">Alış TL</label>
       <input id="alis-inp" type="number" required class="form-control" value="0" step="any" name="alis-inp">
       <label for="kargo-inp">Kargo TL</label>
@@ -30,6 +28,10 @@
       <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="20" step="any" name="gelirvergisi-yuzdesi-inp">
       <label for="kdv-yuzdesi-inp">KDV %</label>
       <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="18" step="any" name="kdv-yuzdesi-inp">
+      <label for="kazanc-yuzdesi-inp">Kazanc (Alıştan) % (Atlamak için Negatif değer giriniz)</label>
+      <input id="kazanc-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="kazanc-yuzdesi-inp">
+      <label for="satis-inp">Satış TL (Atlamak için Negatif değer giriniz)</label>
+      <input id="satis-inp" type="number" required class="form-control" value="-1" step="any" name="satis-inp">
       <br>
       <button type="submit" class="btn btn-secondary btn-lg btn-block" form="main-form" id="hesapla-btn">HESAPLA</button>
     </form>  
@@ -51,18 +53,17 @@
     let formDiv = document.querySelector('#form-div');
     let mainForm = document.querySelector('#main-form');
     let hesaplaBtn = document.querySelector('#hesapla-btn');
-    let hesaplaText = document.querySelector('#hesapla-text');         
+    let hesaplaText = document.querySelector('#hesapla-text');
 
     /*
     formDiv.addEventListener('click', function() {
       this.scrollIntoView();               
     });  
     */
-
+    
     hesaplaBtn.addEventListener('click', function() {
       if (mainForm.checkValidity()) { 
-        hesaplaText.value = '';  
-        let satis = Number(document.querySelector('#satis-inp').value);
+        hesaplaText.value = '';         
         let alis = Number(document.querySelector('#alis-inp').value);
         let kargo =Number( document.querySelector('#kargo-inp').value);
         let paketleme = Number(document.querySelector('#paketleme-inp').value);
@@ -70,8 +71,18 @@
         let digergiderYuzdesi = Number(document.querySelector('#digergider-yuzdesi-inp').value);
         let alisfaturasiYuzdesi = Number(document.querySelector('#alisfaturasi-yuzdesi-inp').value);    
         let gelirvergisiYuzdesi = Number(document.querySelector('#gelirvergisi-yuzdesi-inp').value);
-        let kdvYuzdesi = Number(document.querySelector('#kdv-yuzdesi-inp').value);        
+        let kdvYuzdesi = Number(document.querySelector('#kdv-yuzdesi-inp').value); 
+        let kazancYuzdesi = Number(document.querySelector('#kazanc-yuzdesi-inp').value);
+        let satis = Number(document.querySelector('#satis-inp').value);  
         
+        if (kazancYuzdesi >= 0 && satis < 0) {
+          //satis = 0;
+          satis = (  alis*kazancYuzdesi/100 + alis+kargo+paketleme - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*gelirvergisiYuzdesi/100 - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*(1-1/(1+kdvYuzdesi/100)) ) / ( 1 - komisyonYuzdesi/100 - digergiderYuzdesi/100 - (1/(1+kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + (komisyonYuzdesi/100+digergiderYuzdesi/100)*gelirvergisiYuzdesi/100 - (1-1/(1+kdvYuzdesi/100))  + (komisyonYuzdesi/100+digergiderYuzdesi/100)*(1-1/(1+kdvYuzdesi/100)) );
+        } else if (kazancYuzdesi < 0 && satis >= 0) {          
+        } else {
+          return;
+        }
+                
         let komisyon = 0, digergider = 0, gider = 0, giderFaturasi = 0, gelirvergisi = 0, kdv = 0, kazanc = 0;
         
         komisyon = satis * komisyonYuzdesi / 100;
@@ -80,8 +91,8 @@
         giderFaturasi = alis * alisfaturasiYuzdesi / 100  + kargo + paketleme + komisyon + digergider;
         gelirvergisi = ( satis / ( 1 + kdvYuzdesi / 100) - giderFaturasi ) * gelirvergisiYuzdesi / 100;
         kdv = ( satis - giderFaturasi ) * ( 1 - 1 / ( 1 + kdvYuzdesi / 100) ); 
-        kazanc = satis - gider - gelirvergisi - kdv;         
-       
+        kazanc = satis - gider - gelirvergisi - kdv;       
+        
         hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
@@ -94,7 +105,8 @@
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';       
+        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
+            
       } 
     });   
     
