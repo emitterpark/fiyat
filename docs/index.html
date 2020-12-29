@@ -39,7 +39,7 @@
   </div>   
   <div id="hesapla-div">
     <label for="hesapla-text">Sonuç</label> 
-    <textarea id="hesapla-text" class="form-control" rows="15" name="hesapla-text"></textarea>
+    <textarea id="hesapla-text" class="form-control" rows="16" name="hesapla-text"></textarea>
     <br>
   </div>  
 </div>
@@ -99,7 +99,8 @@
         hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Diğer Gider: ' + '\t\t' + digergider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
-        hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'FATURALI GİDER: ' + '\t' + gider.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'GELİR VERGİSİ: ' + '\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KDV: ' + '\t\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
