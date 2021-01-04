@@ -100,14 +100,14 @@
         hesaplaText.value += 'Diğer Gider: ' + '\t\t' + digergider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'FATURALI GİDER: ' + '\t' + gider.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'FATURALI GİDER: ' + '\t' + giderFaturasi.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'GELİR VERGİSİ: ' + '\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KDV: ' + '\t\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
-        hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ YÜZDESİ: ' + '\t' + kazancYuzdesi.toFixed(2) + ' %' + '\r\n';
+        hesaplaText.value += 'KAZANÇ YÜZDESİ: ' + '\t' + (100 * kazanc / alis).toFixed(2) + ' %' + '\r\n';
         
             
       } 
