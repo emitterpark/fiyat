@@ -96,7 +96,7 @@
         hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL (SATIŞTAN)' + '\r\n';
         hesaplaText.value += 'Diğer Gider: ' + '\t\t' + digergider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
@@ -106,8 +106,8 @@
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
-        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ YÜZDESİ: ' + '\t' + (100 * kazanc / alis).toFixed(2) + ' %' + '\r\n';
+        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL (ALIŞTAN)' + '\r\n';
+        hesaplaText.value += 'KAZANÇ YÜZDESİ: ' + '\t' + (100 * kazanc / alis).toFixed(2) + ' %  (ALIŞTAN)' + '\r\n';
         
             
       } 
