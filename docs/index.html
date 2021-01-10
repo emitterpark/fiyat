@@ -76,7 +76,31 @@
         let satis = Number(document.querySelector('#satis-inp').value);  
         
         if (kazancYuzdesi >= 0 && satis < 0) {          
-          satis = (  alis*kazancYuzdesi/100 + alis+kargo+paketleme - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*gelirvergisiYuzdesi/100 - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*(1-1/(1+kdvYuzdesi/100)) ) / ( 1 - komisyonYuzdesi/100 - digergiderYuzdesi/100 - (1/(1+kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + (komisyonYuzdesi/100+digergiderYuzdesi/100)*gelirvergisiYuzdesi/100 - (1-1/(1+kdvYuzdesi/100))  + (komisyonYuzdesi/100+digergiderYuzdesi/100)*(1-1/(1+kdvYuzdesi/100)) );
+          //satis = (  alis*kazancYuzdesi/100 + alis+kargo+paketleme - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*gelirvergisiYuzdesi/100 - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*(1-1/(1+kdvYuzdesi/100)) ) / ( 1 - komisyonYuzdesi/100 - digergiderYuzdesi/100 - (1/(1+kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + (komisyonYuzdesi/100+digergiderYuzdesi/100)*gelirvergisiYuzdesi/100 - (1-1/(1+kdvYuzdesi/100))  + (komisyonYuzdesi/100+digergiderYuzdesi/100)*(1-1/(1+kdvYuzdesi/100)) );
+        
+          //satis = kazanc + gider + gelirvergisi + kdv;          
+          //satis = 
+          //      alis*kazancYuzdesi/100 + 
+          //      alis + kargo + paketleme + komisyon + digergider + 
+          //      ((satis - giderFaturasi)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + 
+          //      (satis - giderFaturasi)*(1 - 1/(1 + kdvYuzdesi/100))
+          //      ;  
+          //satis = 
+          //      alis*kazancYuzdesi/100 + 
+          //      alis + kargo + paketleme + satis*komisyonYuzdesi/100 + satis*digergiderYuzdesi/100 + 
+          //      ((satis - (alis*alisfaturasiYuzdesi/100 + kargo + paketleme + satis*komisyonYuzdesi/100 + satis*digergiderYuzdesi/100))/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + 
+          //      (satis - (alis*alisfaturasiYuzdesi/100 + kargo + paketleme + satis*komisyonYuzdesi/100 + satis*digergiderYuzdesi/100))*(1 - 1/(1 + kdvYuzdesi/100))
+          //      ;
+          //satis = 
+          //      alis*kazancYuzdesi/100 + 
+          //      alis + kargo + paketleme + satis*komisyonYuzdesi/100 + satis*digergiderYuzdesi/100 + 
+          //      (satis*(1 - (komisyonYuzdesi/100 + digergiderYuzdesi/100))/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - ((alis*alisfaturasiYuzdesi/100 + kargo + paketleme)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + 
+          //      satis*(1 - (komisyonYuzdesi/100 + digergiderYuzdesi/100))*(1 - 1/(1 + kdvYuzdesi/100)) - (alis*alisfaturasiYuzdesi/100 + kargo + paketleme)*(1 - 1/(1 + kdvYuzdesi/100))
+          //      ;
+          satis = 
+                (  alis*kazancYuzdesi/100 + alis + kargo + paketleme - ((alis*alisfaturasiYuzdesi/100 + kargo + paketleme)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - (alis*alisfaturasiYuzdesi/100 + kargo + paketleme)*(1 - 1/(1 + kdvYuzdesi/100))    )  /
+                (  (1 - komisyonYuzdesi/100 - digergiderYuzdesi/100 - ((1 - (komisyonYuzdesi/100 + digergiderYuzdesi/100))/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - (1 - (komisyonYuzdesi/100 + digergiderYuzdesi/100))*(1 - 1/(1 + kdvYuzdesi/100)))  )
+                ;                 
         } else if (kazancYuzdesi < 0 && satis >= 0) {          
         } else {
           return;
@@ -84,12 +108,12 @@
                 
         let komisyon = 0, digergider = 0, gider = 0, giderFaturasi = 0, gelirvergisi = 0, kdv = 0, kazanc = 0;
         
-        komisyon = satis * komisyonYuzdesi / 100;
-        digergider = satis * digergiderYuzdesi / 100;        
+        komisyon = satis*komisyonYuzdesi/100;
+        digergider = satis*digergiderYuzdesi/100;        
         gider = alis + kargo + paketleme + komisyon + digergider;
-        giderFaturasi = alis * alisfaturasiYuzdesi / 100  + kargo + paketleme + komisyon + digergider;
-        gelirvergisi = ( satis / ( 1 + kdvYuzdesi / 100) - giderFaturasi ) * gelirvergisiYuzdesi / 100;
-        kdv = ( satis - giderFaturasi ) * ( 1 - 1 / ( 1 + kdvYuzdesi / 100) ); 
+        giderFaturasi = alis*alisfaturasiYuzdesi/100 + kargo + paketleme + komisyon + digergider;
+        gelirvergisi = ((satis - giderFaturasi)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100;
+        kdv = (satis - giderFaturasi)*(1 - 1/(1 + kdvYuzdesi/100)); 
         kazanc = satis - gider - gelirvergisi - kdv;       
         
         hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
@@ -105,8 +129,8 @@
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
-        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL (ALIŞTAN)' + '\r\n';
-        hesaplaText.value += 'KAZANÇ YÜZDESİ: ' + '\t' + (100 * kazanc / alis).toFixed(2) + ' %  (ALIŞTAN)' + '\r\n';
+        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'KAZANÇ YÜZDESİ: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %  (ALIŞTAN)' + '\r\n';
         
             
       } 
