@@ -25,7 +25,7 @@
       <label for="alisfaturasi-yuzdesi-inp">Alış Faturası %</label>
       <input id="alisfaturasi-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="alisfaturasi-yuzdesi-inp">
       <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
-      <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="20" step="any" name="gelirvergisi-yuzdesi-inp">
+      <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="22" step="any" name="gelirvergisi-yuzdesi-inp">
       <label for="kdv-yuzdesi-inp">KDV %</label>
       <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="18" step="any" name="kdv-yuzdesi-inp">
       <label for="kazanc-yuzdesi-inp">Kazanc (Alıştan) % (Atlamak için Negatif değer giriniz)</label>
@@ -75,8 +75,7 @@
         let kazancYuzdesi = Number(document.querySelector('#kazanc-yuzdesi-inp').value);
         let satis = Number(document.querySelector('#satis-inp').value);  
         
-        if (kazancYuzdesi >= 0 && satis < 0) {
-          //satis = 0;
+        if (kazancYuzdesi >= 0 && satis < 0) {          
           satis = (  alis*kazancYuzdesi/100 + alis+kargo+paketleme - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*gelirvergisiYuzdesi/100 - (alis*alisfaturasiYuzdesi/100+kargo+paketleme)*(1-1/(1+kdvYuzdesi/100)) ) / ( 1 - komisyonYuzdesi/100 - digergiderYuzdesi/100 - (1/(1+kdvYuzdesi/100))*gelirvergisiYuzdesi/100 + (komisyonYuzdesi/100+digergiderYuzdesi/100)*gelirvergisiYuzdesi/100 - (1-1/(1+kdvYuzdesi/100))  + (komisyonYuzdesi/100+digergiderYuzdesi/100)*(1-1/(1+kdvYuzdesi/100)) );
         } else if (kazancYuzdesi < 0 && satis >= 0) {          
         } else {
