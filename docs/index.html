@@ -11,11 +11,21 @@
 <div class="container" id="main-div">
   <div id="form-div">
     <br>
-    <form onsubmit="return false" id="main-form">      
-      <label for="alis-inp">Alış TL</label>
-      <input id="alis-inp" type="number" required class="form-control" value="0" step="any" name="alis-inp">
-      <label for="kargo-inp">Kargo TL</label>
-      <input id="kargo-inp" type="number" required class="form-control" value="0" step="any" name="kargo-inp">
+    <form onsubmit="return false" id="main-form">  
+      
+      <div class="row">        
+        <div class="col">
+          <label for="alis-inp">Alış TL</label>
+          <input id="alis-inp" type="number" required class="form-control" value="0" step="any" name="alis-inp">  
+        </div>
+        <div class="col">
+          <label for="kargo-inp">Kargo TL</label>
+          <input id="kargo-inp" type="number" required class="form-control" value="0" step="any" name="kargo-inp">  
+        </div>
+      </div>
+
+      
+      
       <label for="paketleme-inp">Paketleme TL</label>
       <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">
       <label for="komisyon-yuzdesi-inp">Komisyon %</label>
