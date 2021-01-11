@@ -11,42 +11,66 @@
 <div class="container" id="main-div">
   <div id="form-div">
     <br>
-    <form onsubmit="return false" id="main-form">  
-      
+    <form onsubmit="return false" id="main-form">      
       <div class="row">        
         <div class="col">
           <label for="alis-inp">Alış TL</label>
           <input id="alis-inp" type="number" required class="form-control" value="0" step="any" name="alis-inp">  
         </div>
         <div class="col">
-          <label for="kargo-inp">Kargo TL</label>
-          <input id="kargo-inp" type="number" required class="form-control" value="0" step="any" name="kargo-inp">  
+          <label for="alisfaturasi-yuzdesi-inp">Alış Faturası %</label>
+          <input id="alisfaturasi-yuzdesi-inp" type="number" required class="form-control" value="100" step="any" name="alisfaturasi-yuzdesi-inp">
         </div>
       </div>
-
+      <div class="row">        
+        <div class="col">
+          <label for="kargo-inp">Kargo TL</label>
+          <input id="kargo-inp" type="number" required class="form-control" value="0" step="any" name="kargo-inp">
+        </div>
+        <div class="col">
+          <label for="paketleme-inp">Paketleme TL</label>
+          <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">  
+        </div>
+      </div>
+      <div class="row">        
+        <div class="col">
+          <label for="komisyon-yuzdesi-inp">Komisyon %</label>
+          <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
+        </div>
+        <div class="col">
+          <label for="digergider-yuzdesi-inp">Diğer Gider (Satıştan) %</label>
+          <input id="digergider-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="digergider-yuzdesi-inp">  
+        </div>
+      </div>      
+      <div class="row">        
+        <div class="col">
+          <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
+          <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="22" step="any" name="gelirvergisi-yuzdesi-inp">
+        </div>
+        <div class="col">
+          <label for="kdv-yuzdesi-inp">KDV %</label>
+          <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="18" step="any" name="kdv-yuzdesi-inp">  
+        </div>
+      </div>
       
-      
-      <label for="paketleme-inp">Paketleme TL</label>
-      <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">
-      <label for="komisyon-yuzdesi-inp">Komisyon %</label>
-      <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
-      <label for="digergider-yuzdesi-inp">Diğer Gider (Satıştan) %</label>
-      <input id="digergider-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="digergider-yuzdesi-inp">
-      <label for="alisfaturasi-yuzdesi-inp">Alış Faturası %</label>
-      <input id="alisfaturasi-yuzdesi-inp" type="number" required class="form-control" value="100" step="any" name="alisfaturasi-yuzdesi-inp">
-      <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
-      <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="22" step="any" name="gelirvergisi-yuzdesi-inp">
-      <label for="kdv-yuzdesi-inp">KDV %</label>
-      <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="18" step="any" name="kdv-yuzdesi-inp">
-      <label for="yontem-sel">Yöntem Seçiniz</label>
-      <select id="yontem-sel" class="form-control" name="yontem-sel">
-        <option value = "kazanc-yuzdesi" selected>Kazanc (Alıştan) %</option>
-        <option value = "kazanc">Kazanc (Alıştan) TL</option>
-        <option value = "satis">Satış TL</option>        
-      </select>       
-      <input id="kazanc-yuzdesi-inp" type="number" required class="form-control" value="100" step="any" name="kazanc-yuzdesi-inp">
-      <input id="kazanc-inp" hidden type="number" required class="form-control" value="0" step="any" name="kazanc-inp">
-      <input id="satis-inp" hidden type="number" required class="form-control" value="0" step="any" name="satis-inp">
+      <div class="row">        
+        <div class="col">
+          <label for="yontem-sel">Yöntem Seçiniz</label>
+          <select id="yontem-sel" class="form-control" name="yontem-sel">
+            <option value = "kazanc-yuzdesi" selected>Kazanç (Alıştan) %</option>
+            <option value = "kazanc">Kazanç (Alıştan) TL</option>
+            <option value = "satis">Satış TL</option>        
+          </select> 
+        </div>
+        <div class="col">
+          <label id="kazanc-yuzdesi-lab" for="kazanc-yuzdesi-inp">Kazanç (Alıştan) %</label>
+          <input id="kazanc-yuzdesi-inp" type="number" required class="form-control" value="100" step="any" name="kazanc-yuzdesi-inp">
+          <label id="kazanc-lab" hidden for="kazanc-inp">Kazanç (Alıştan) TL</label>
+          <input id="kazanc-inp" hidden type="number" required class="form-control" value="0" step="any" name="kazanc-inp">
+          <label id="satis-lab" hidden for="satis-inp">Satış TL</label>
+          <input id="satis-inp" hidden type="number" required class="form-control" value="0" step="any" name="satis-inp">  
+        </div>
+      </div>      
       <br>
       <button type="submit" class="btn btn-secondary btn-lg btn-block" form="main-form" id="hesapla-btn">HESAPLA</button>
     </form>  
@@ -68,8 +92,11 @@
     let formDiv = document.querySelector('#form-div');
     let mainForm = document.querySelector('#main-form');
     let yontemSel = document.querySelector('#yontem-sel');
+    let kazancyuzdesiLab = document.querySelector('#kazanc-yuzdesi-lab');
     let kazancyuzdesiInp = document.querySelector('#kazanc-yuzdesi-inp');
+    let kazancLab = document.querySelector('#kazanc-lab');
     let kazancInp = document.querySelector('#kazanc-inp');
+    let satisLab = document.querySelector('#satis-lab');
     let satisInp = document.querySelector('#satis-inp');
     let hesaplaBtn = document.querySelector('#hesapla-btn');
     let hesaplaText = document.querySelector('#hesapla-text');
@@ -81,17 +108,26 @@
     */
 
     yontemSel.addEventListener('change', function() {
-      if (this.value == 'kazanc-yuzdesi') {                     
+      if (this.value == 'kazanc-yuzdesi') {
+        kazancyuzdesiLab.hidden = false;                     
         kazancyuzdesiInp.hidden = false; 
+        kazancLab.hidden = true;        
         kazancInp.hidden = true;
+        satisLab.hidden = true;
         satisInp.hidden = true; 
       } else if (this.value == 'kazanc') {
-        kazancyuzdesiInp.hidden = true; 
+        kazancyuzdesiLab.hidden = true;
+        kazancyuzdesiInp.hidden = true;
+        kazancLab.hidden = false;         
         kazancInp.hidden = false;
+        satisLab.hidden = true;
         satisInp.hidden = true;              
       } else if (this.value == 'satis') {
+        kazancyuzdesiLab.hidden = true;
         kazancyuzdesiInp.hidden = true; 
+        kazancLab.hidden = true;        
         kazancInp.hidden = true;
+        satisLab.hidden = false;
         satisInp.hidden = false;          
       } 
     });
