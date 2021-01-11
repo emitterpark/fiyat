@@ -34,7 +34,7 @@
       </div>
       <div class="row">        
         <div class="col">
-          <label for="komisyon-yuzdesi-inp">Komisyon %</label>
+          <label for="komisyon-yuzdesi-inp">Komisyon (Satış) %</label>
           <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
         </div>
         <div class="col">
@@ -185,7 +185,7 @@
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %  (ALIŞ)' + '\r\n';
+        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %' + '\r\n';
         
             
       } 
