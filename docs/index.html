@@ -38,7 +38,7 @@
           <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="komisyon-yuzdesi-inp">
         </div>
         <div class="col">
-          <label for="digergider-yuzdesi-inp">Diğer Gider (Satıştan) %</label>
+          <label for="digergider-yuzdesi-inp">Diğer Gider (Satış) %</label>
           <input id="digergider-yuzdesi-inp" type="number" required class="form-control" value="0" step="any" name="digergider-yuzdesi-inp">  
         </div>
       </div>      
@@ -57,15 +57,15 @@
         <div class="col">
           <label for="yontem-sel">Yöntem Seçiniz</label>
           <select id="yontem-sel" class="form-control" name="yontem-sel">
-            <option value = "kazanc-yuzdesi" selected>Kazanç (Alıştan) %</option>
-            <option value = "kazanc">Kazanç (Alıştan) TL</option>
+            <option value = "kazanc-yuzdesi" selected>Kazanç (Alış) %</option>
+            <option value = "kazanc">Kazanç (Alış) TL</option>
             <option value = "satis">Satış TL</option>        
           </select> 
         </div>
         <div class="col">
-          <label id="kazanc-yuzdesi-lab" for="kazanc-yuzdesi-inp">Kazanç (Alıştan) %</label>
+          <label id="kazanc-yuzdesi-lab" for="kazanc-yuzdesi-inp">Kazanç (Alış) %</label>
           <input id="kazanc-yuzdesi-inp" type="number" required class="form-control" value="100" step="any" name="kazanc-yuzdesi-inp">
-          <label id="kazanc-lab" hidden for="kazanc-inp">Kazanç (Alıştan) TL</label>
+          <label id="kazanc-lab" hidden for="kazanc-inp">Kazanç (Alış) TL</label>
           <input id="kazanc-inp" hidden type="number" required class="form-control" value="0" step="any" name="kazanc-inp">
           <label id="satis-lab" hidden for="satis-inp">Satış TL</label>
           <input id="satis-inp" hidden type="number" required class="form-control" value="0" step="any" name="satis-inp">  
@@ -185,7 +185,7 @@
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %  (ALIŞTAN)' + '\r\n';
+        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %  (ALIŞ)' + '\r\n';
         
             
       } 
