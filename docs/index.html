@@ -15,17 +15,17 @@
       <div class="row">        
         <div class="col">
           <label for="alis-inp">Alış TL</label>
-          <input id="alis-inp" type="number" required class="form-control" value="0" step="any" name="alis-inp">  
+          <input id="alis-inp" type="number" required class="form-control" value="25" step="any" name="alis-inp">  
         </div>
         <div class="col">
           <label for="komisyon-yuzdesi-inp">Komisyon (Satış) %</label>
-          <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="15" step="any" name="komisyon-yuzdesi-inp">
+          <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="20" step="any" name="komisyon-yuzdesi-inp">
         </div>
       </div>
       <div class="row">        
         <div class="col">
           <label for="alisfaturasi-yuzdesi-inp">Alış Faturası %</label>
-          <input id="alisfaturasi-yuzdesi-inp" type="number" required class="form-control" value="100" step="any" name="alisfaturasi-yuzdesi-inp">
+          <input id="alisfaturasi-yuzdesi-inp" type="number" required class="form-control" value="50" step="any" name="alisfaturasi-yuzdesi-inp">
         </div>
         <div class="col">
           <label for="digergider-yuzdesi-inp">Diğer Gider (Satış) %</label>
@@ -35,7 +35,7 @@
       <div class="row">        
         <div class="col">
           <label for="kargo-inp">Kargo TL</label>
-          <input id="kargo-inp" type="number" required class="form-control" value="9.75" step="any" name="kargo-inp">  
+          <input id="kargo-inp" type="number" required class="form-control" value="15" step="any" name="kargo-inp">  
         </div>
         <div class="col">
           <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
@@ -45,7 +45,7 @@
       <div class="row">        
         <div class="col">
           <label for="paketleme-inp">Paketleme TL</label>
-          <input id="paketleme-inp" type="number" required class="form-control" value="0" step="any" name="paketleme-inp">  
+          <input id="paketleme-inp" type="number" required class="form-control" value="3" step="any" name="paketleme-inp">  
         </div>
         <div class="col">
           <label for="kdv-yuzdesi-inp">KDV %</label>
@@ -64,7 +64,7 @@
         </div>
         <div class="col">
           <label id="kazanc-yuzdesi-lab" for="kazanc-yuzdesi-inp">Kazanç (Alış) %</label>
-          <input id="kazanc-yuzdesi-inp" type="number" required class="form-control bg-warning text-light" value="100" step="any" name="kazanc-yuzdesi-inp">
+          <input id="kazanc-yuzdesi-inp" type="number" required class="form-control bg-warning text-light" value="50" step="any" name="kazanc-yuzdesi-inp">
           <label id="kazanc-lab" hidden for="kazanc-inp">Kazanç (Alış) TL</label>
           <input id="kazanc-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="kazanc-inp">
           <label id="satis-lab" hidden for="satis-inp">Satış TL</label>
@@ -91,6 +91,9 @@
     let formDiv = document.querySelector('#form-div');
     let mainForm = document.querySelector('#main-form');
     let yontemSel = document.querySelector('#yontem-sel');
+    let alisInp = document.querySelector('#alis-inp');
+    let kargoInp = document.querySelector('#kargo-inp');
+    let paketlemeInp = document.querySelector('#paketleme-inp');
     let kazancyuzdesiLab = document.querySelector('#kazanc-yuzdesi-lab');
     let kazancyuzdesiInp = document.querySelector('#kazanc-yuzdesi-inp');
     let kazancLab = document.querySelector('#kazanc-lab');
@@ -130,13 +133,18 @@
         satisInp.hidden = false;          
       } 
     });
-    
+
+    alisInp.addEventListener('change', function() {
+      kargoInp.value = 0.2*Number(alisInp.value) + 10;
+      paketlemeInp.value = 0.02*Number(alisInp.value) + 2.5;
+    });
+
     hesaplaBtn.addEventListener('click', function() {
       if (mainForm.checkValidity()) { 
         hesaplaText.value = '';         
-        let alis = Number(document.querySelector('#alis-inp').value);
-        let kargo =Number( document.querySelector('#kargo-inp').value);
-        let paketleme = Number(document.querySelector('#paketleme-inp').value);
+        let alis = Number(alisInp.value);
+        let kargo =Number(kargoInp.value);
+        let paketleme = Number(paketlemeInp.value);
         let komisyonYuzdesi = Number(document.querySelector('#komisyon-yuzdesi-inp').value);
         let digergiderYuzdesi = Number(document.querySelector('#digergider-yuzdesi-inp').value);
         let alisfaturasiYuzdesi = Number(document.querySelector('#alisfaturasi-yuzdesi-inp').value);    
