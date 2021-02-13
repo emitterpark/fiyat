@@ -168,13 +168,14 @@
         } else if (yontemSel.value == 'satis') {          
         } 
                 
-        let komisyon = 0, digergider = 0, gider = 0, giderFaturasi = 0, gelirvergisi = 0, kdv = 0;
+        let komisyon = 0, digergider = 0, gider = 0, giderFaturasi = 0, gelir = 0, gelirvergisi = 0, kdv = 0;
         
         komisyon = satis*komisyonYuzdesi/100;
         digergider = satis*digergiderYuzdesi/100;        
         gider = alis + kargo + paketleme + komisyon + digergider;
         giderFaturasi = alis*alisfaturasiYuzdesi/100 + kargo + paketleme + komisyon + digergider;
-        gelirvergisi = ((satis - giderFaturasi)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100;
+        gelir = ((satis - giderFaturasi)/(1 + kdvYuzdesi/100));
+        gelirvergisi = gelir*gelirvergisiYuzdesi/100;
         kdv = (satis - giderFaturasi)*(1 - 1/(1 + kdvYuzdesi/100)); 
         kazanc = satis - gider - gelirvergisi - kdv;       
         
@@ -186,15 +187,14 @@
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'FATURALI GİDER: ' + '\t' + giderFaturasi.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'GELİR: ' + '\t\t\t' + gelir.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'GELİR VERGİSİ: ' + '\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KDV: ' + '\t\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %' + '\r\n';
-        
-            
+        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %' + '\r\n';            
       } 
     });   
     
