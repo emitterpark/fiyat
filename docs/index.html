@@ -116,6 +116,25 @@
     });  
     */
 
+    function selHeykel() {
+      alisfaturasiInp.value = 50;
+      kargoInp.value = 0.2*Number(alisInp.value) + 10;
+      paketlemeInp.value = 0.02*Number(alisInp.value) + 2.5;
+      komisyonyuzdesiInp.value = 20;
+      digergideryuzdesiInp.value = 0;
+      gelirvergisiyuzdesiInp.value = 22;
+      kdvyuzdesiInp.value = 18;
+    }
+    function selCsGo() {
+      alisfaturasiInp.value = 25;
+      kargoInp.value = 12.98;
+      paketlemeInp.value = 0;
+      komisyonyuzdesiInp.value = 15;
+      digergideryuzdesiInp.value = 0;
+      gelirvergisiyuzdesiInp.value = 22;
+      kdvyuzdesiInp.value = 18;
+    }
+
     yontemSel.addEventListener('change', function() {
       if (this.value == 'heykel' || this.value == 'cs-go' || this.value == 'kazanc-yuzdesi') {
         kazancyuzdesiLab.hidden = false;                     
@@ -140,41 +159,17 @@
         satisInp.hidden = false;          
       } 
       if (this.value == 'heykel') { 
-        alisfaturasiInp.value = 50;
-        kargoInp.value = 0.2*Number(alisInp.value) + 10;
-        paketlemeInp.value = 0.02*Number(alisInp.value) + 2.5;
-        komisyonyuzdesiInp.value = 20;
-        digergideryuzdesiInp.value = 0;
-        gelirvergisiyuzdesiInp.value = 22;
-        kdvyuzdesiInp.value = 18;
+        selHeykel();
       } else if (this.value == 'cs-go') {
-        alisfaturasiInp.value = 25;
-        kargoInp.value = 12.98;
-        paketlemeInp.value = 0;
-        komisyonyuzdesiInp.value = 15;
-        digergideryuzdesiInp.value = 0;
-        gelirvergisiyuzdesiInp.value = 22;
-        kdvyuzdesiInp.value = 18;
+        selCsGo();
       }
     });
 
     alisInp.addEventListener('change', function() {
       if (yontemSel.value == 'heykel') { 
-        alisfaturasiInp.value = 50;
-        kargoInp.value = 0.2*Number(alisInp.value) + 10;
-        paketlemeInp.value = 0.02*Number(alisInp.value) + 2.5;
-        komisyonyuzdesiInp.value = 20;
-        digergideryuzdesiInp.value = 0;
-        gelirvergisiyuzdesiInp.value = 22;
-        kdvyuzdesiInp.value = 18;
+        selHeykel();
       } else if (yontemSel.value == 'cs-go') {
-        alisfaturasiInp.value = 25;
-        kargoInp.value = 12.98;
-        paketlemeInp.value = 0;
-        komisyonyuzdesiInp.value = 15;
-        digergideryuzdesiInp.value = 0;
-        gelirvergisiyuzdesiInp.value = 22;
-        kdvyuzdesiInp.value = 18;
+        selCsGo();
       }
     });
 
