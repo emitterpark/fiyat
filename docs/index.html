@@ -47,16 +47,15 @@
         <div class="col">
           <label for="yontem-sel">Yöntem Seçiniz</label>
           <select id="yontem-sel" class="form-control bg-warning text-light" name="yontem-sel">
-            <option value = "heykel">Heykel</option>
-            <option value = "cs-go">Cs-Go</option>
-            <option value = "kazanc-yuzdesi" selected>Kazanç %</option>
+            <option value = "canta" selected>Çanta</option>
+            <option value = "kazanc-yuzdesi">Kazanç %</option>
             <option value = "kazanc">Kazanç TL</option>
             <option value = "satis">Satış TL</option>        
           </select> 
         </div>
         <div class="col">
-          <label id="kazanc-yuzdesi-lab" for="kazanc-yuzdesi-inp">Kazanç (Alış) %</label>
-          <input id="kazanc-yuzdesi-inp" type="number" required class="form-control bg-warning text-light" value="50" step="any" name="kazanc-yuzdesi-inp">
+          <label id="kazanc-yuzdesi-lab" hidden for="kazanc-yuzdesi-inp">Kazanç (Alış) %</label>
+          <input id="kazanc-yuzdesi-inp" hidden type="number" required class="form-control bg-warning text-light" value="50" step="any" name="kazanc-yuzdesi-inp">
           <label id="kazanc-lab" hidden for="kazanc-inp">Kazanç (Alış) TL</label>
           <input id="kazanc-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="kazanc-inp">
           <label id="satis-lab" hidden for="satis-inp">Satış TL</label>
@@ -103,24 +102,16 @@
       this.scrollIntoView();               
     });  
     */
-
-    function selHeykel() {
-      kargoInp.value = 0.2*Number(alisInp.value) + 10;
-      paketlemeInp.value = 0.02*Number(alisInp.value) + 2.5;
-      komisyonyuzdesiInp.value = 20;
-      gelirvergisiyuzdesiInp.value = 0;
-      kdvyuzdesiInp.value = 0;
-    }
-    function selCsGo() {
-      kargoInp.value = 11.5;
-      paketlemeInp.value = 0;
-      komisyonyuzdesiInp.value = 15;
-      gelirvergisiyuzdesiInp.value = 0;
-      kdvyuzdesiInp.value = 0;
-    }
-
+    
     yontemSel.addEventListener('change', function() {
-      if (this.value == 'heykel' || this.value == 'cs-go' || this.value == 'kazanc-yuzdesi') {
+      if (this.value == 'canta') {
+        kazancyuzdesiLab.hidden = true;                     
+        kazancyuzdesiInp.hidden = true; 
+        kazancLab.hidden = true;        
+        kazancInp.hidden = true;
+        satisLab.hidden = true;
+        satisInp.hidden = true;
+      } else if (this.value == 'kazanc-yuzdesi') {
         kazancyuzdesiLab.hidden = false;                     
         kazancyuzdesiInp.hidden = false; 
         kazancLab.hidden = true;        
@@ -141,21 +132,8 @@
         kazancInp.hidden = true;
         satisLab.hidden = false;
         satisInp.hidden = false;          
-      } 
-      if (this.value == 'heykel') { 
-        selHeykel();
-      } else if (this.value == 'cs-go') {
-        selCsGo();
-      }
-    });
-
-    alisInp.addEventListener('change', function() {
-      if (yontemSel.value == 'heykel') { 
-        selHeykel();
-      } else if (yontemSel.value == 'cs-go') {
-        selCsGo();
-      }
-    });
+      }       
+    });    
 
     hesaplaBtn.addEventListener('click', function() {
       if (mainForm.checkValidity()) { 
@@ -163,35 +141,47 @@
         let alis = Number(alisInp.value);
         let kargo =Number(kargoInp.value);
         let paketleme = Number(paketlemeInp.value);
-        let komisyonYuzdesi = Number(komisyonyuzdesiInp.value);
-        let gelirvergisiYuzdesi = Number(gelirvergisiyuzdesiInp.value);        
-        let kdvYuzdesi = Number(kdvyuzdesiInp.value);         
-        let kazancYuzdesi = Number(kazancyuzdesiInp.value);
+        let komisyonYuzdesi = Number(komisyonyuzdesiInp.value)/100;
+        let gelirvergisiYuzdesi = Number(gelirvergisiyuzdesiInp.value)/100;        
+        let kdvYuzdesi = Number(kdvyuzdesiInp.value)/100;         
+        let kazancYuzdesi = Number(kazancyuzdesiInp.value)/100;
         let kazanc = Number(kazancInp.value);
-        let satis = Number(satisInp.value);  
+        let satis = Number(satisInp.value);         
         
-        //satis = kazanc + gider + gelirvergisi + kdv;
-        if (yontemSel.value == 'heykel' || yontemSel.value == 'cs-go' || yontemSel.value == 'kazanc-yuzdesi') {                     
-          satis = 
-                (  alis*kazancYuzdesi/100 + alis + kargo + paketleme - ((alis + kargo + paketleme)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - (alis + kargo + paketleme)*(1 - 1/(1 + kdvYuzdesi/100))    )  /
-                (  (1 - komisyonYuzdesi/100 - ((1 - komisyonYuzdesi/100)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - (1 - komisyonYuzdesi/100)*(1 - 1/(1 + kdvYuzdesi/100)))  )
-                ;
+        // satis = kazanc + gider + gelirvergisi + kdv
+        let k = alis + kargo + paketleme - ((alis + kargo + paketleme)/(1 + kdvYuzdesi))*gelirvergisiYuzdesi - (alis + kargo + paketleme)*(1 - 1/(1 + kdvYuzdesi));
+        let m = 1 - komisyonYuzdesi - ((1 - komisyonYuzdesi)/(1 + kdvYuzdesi))*gelirvergisiYuzdesi - (1 - komisyonYuzdesi)*(1 - 1/(1 + kdvYuzdesi));
+               
+        if (yontemSel.value == 'canta') {  
+          let a = -0.00025, b = 0.25;
+          // kazancMarji = a*satis + b
+          // kazanc = satis*kazancMarji
+          // kazanc = a*satis*satis + b*satis        
+          // satis = (a*satis*satis + b*satis + k) / m
+          // a*satis*satis + (b - m)*satis + k = 0 
+          let rootPart = Math.sqrt((b - m)*(b - m) - 4*a*k);
+          let denom = 2*a;
+          let root1 = (-(b - m) + rootPart)/denom;                 
+          let root2 = (-(b - m) - rootPart)/denom;
+          if (root1 >= 0) {
+            satis = root1;
+          } else if (root2 >= 0) { 
+            satis = root2;
+          }
+        } else if (yontemSel.value == 'kazanc-yuzdesi') {                     
+          satis = (alis*kazancYuzdesi + k) / m;
         } else if (yontemSel.value == 'kazanc') {                     
-          satis = 
-                (  kazanc + alis + kargo + paketleme - ((alis + kargo + paketleme)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - (alis + kargo + paketleme)*(1 - 1/(1 + kdvYuzdesi/100))    )  /
-                (  (1 - komisyonYuzdesi/100 - ((1 - komisyonYuzdesi/100)/(1 + kdvYuzdesi/100))*gelirvergisiYuzdesi/100 - (1 - komisyonYuzdesi/100)*(1 - 1/(1 + kdvYuzdesi/100)))  )
-                ;                 
+          satis = (kazanc + k) / m;                                
         } else if (yontemSel.value == 'satis') {          
         } 
                 
-        let komisyon = 0, gider = 0, giderFaturasi = 0, gelir = 0, gelirvergisi = 0, kdv = 0;
+        let komisyon = 0, gider = 0, gelir = 0, gelirvergisi = 0, kdv = 0;
         
-        komisyon = satis*komisyonYuzdesi/100;
+        komisyon = satis*komisyonYuzdesi;
         gider = alis + kargo + paketleme + komisyon;
-        giderFaturasi = alis + kargo + paketleme + komisyon;
-        gelir = ((satis - giderFaturasi)/(1 + kdvYuzdesi/100));
-        gelirvergisi = gelir*gelirvergisiYuzdesi/100;
-        kdv = (satis - giderFaturasi)*(1 - 1/(1 + kdvYuzdesi/100)); 
+        gelir = ((satis - gider)/(1 + kdvYuzdesi));
+        gelirvergisi = gelir*gelirvergisiYuzdesi;
+        kdv = (satis - gider)*(1 - 1/(1 + kdvYuzdesi)); 
         kazanc = satis - gider - gelirvergisi - kdv;       
         
         hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
@@ -200,7 +190,6 @@
         hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'GİDER: ' + '\t\t\t' + gider.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'FATURALI GİDER: ' + '\t' + giderFaturasi.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'GELİR: ' + '\t\t\t' + gelir.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'GELİR VERGİSİ: ' + '\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KDV: ' + '\t\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
