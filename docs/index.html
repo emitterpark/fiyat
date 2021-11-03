@@ -153,6 +153,8 @@
         let m = 1 - komisyonYuzdesi - ((1 - komisyonYuzdesi)/(1 + kdvYuzdesi))*gelirvergisiYuzdesi - (1 - komisyonYuzdesi)*(1 - 1/(1 + kdvYuzdesi));
                
         if (yontemSel.value == 'canta') {  
+          // f(x)=93.4506-7.210004 ln(131.966x+4.93497)
+          // desmos.com
           let a = -0.00025, b = 0.25;
           // kazancMarji = a*satis + b
           // kazanc = satis*kazancMarji
