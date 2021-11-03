@@ -18,8 +18,8 @@
           <input id="alis-inp" type="number" required class="form-control" value="100" step="any" name="alis-inp">  
         </div>
         <div class="col">
-          <label for="komisyon-yuzdesi-inp">Komisyon (Satış) %</label>
-          <input id="komisyon-yuzdesi-inp" type="number" required class="form-control" value="20" step="any" name="komisyon-yuzdesi-inp">
+          <label for="komisyon-orani-inp">Komisyon (Satış) %</label>
+          <input id="komisyon-orani-inp" type="number" required class="form-control" value="20" step="any" name="komisyon-orani-inp">
         </div>
       </div>
       <div class="row">        
@@ -28,8 +28,8 @@
           <input id="kargo-inp" type="number" required class="form-control" value="20" step="any" name="kargo-inp">  
         </div>
         <div class="col">
-          <label for="gelirvergisi-yuzdesi-inp">Gelir Vergisi %</label>
-          <input id="gelirvergisi-yuzdesi-inp" type="number" required class="form-control" value="15" step="any" name="gelirvergisi-yuzdesi-inp">
+          <label for="gelirvergisi-orani-inp">Gelir Vergisi %</label>
+          <input id="gelirvergisi-orani-inp" type="number" required class="form-control" value="15" step="any" name="gelirvergisi-orani-inp">
         </div>
       </div>      
       <div class="row">        
@@ -38,8 +38,8 @@
           <input id="paketleme-inp" type="number" required class="form-control" value="5" step="any" name="paketleme-inp">  
         </div>
         <div class="col">
-          <label for="kdv-yuzdesi-inp">KDV %</label>
-          <input id="kdv-yuzdesi-inp" type="number" required class="form-control" value="8" step="any" name="kdv-yuzdesi-inp">  
+          <label for="kdv-orani-inp">KDV %</label>
+          <input id="kdv-orani-inp" type="number" required class="form-control" value="8" step="any" name="kdv-orani-inp">  
         </div>
       </div> 
       <br>     
@@ -47,17 +47,19 @@
         <div class="col">
           <label for="yontem-sel">Yöntem Seçiniz</label>
           <select id="yontem-sel" class="form-control bg-warning text-light" name="yontem-sel">
-            <option value = "canta" selected>Çanta</option>
-            <option value = "kazanc-yuzdesi">Kazanç %</option>
-            <option value = "kazanc">Kazanç TL</option>
+            <option value = "kar-marji" selected>Kar Marjı %</option>
+            <option value = "kar-orani">Kar Oranı %</option>
+            <option value = "kar">Kar TL</option>
             <option value = "satis">Satış TL</option>        
           </select> 
         </div>
         <div class="col">
-          <label id="kazanc-yuzdesi-lab" hidden for="kazanc-yuzdesi-inp">Kazanç (Alış) %</label>
-          <input id="kazanc-yuzdesi-inp" hidden type="number" required class="form-control bg-warning text-light" value="50" step="any" name="kazanc-yuzdesi-inp">
-          <label id="kazanc-lab" hidden for="kazanc-inp">Kazanç (Alış) TL</label>
-          <input id="kazanc-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="kazanc-inp">
+          <label id="kar-marji-lab" for="kar-marji-inp">Kar Marjı %</label>
+          <input id="kar-marji-inp" type="number" required class="form-control bg-warning text-light" value="15" step="any" name="kar-marji-inp">
+          <label id="kar-orani-lab" hidden for="kar-orani-inp">Kar Oranı %</label>
+          <input id="kar-orani-inp" hidden type="number" required class="form-control bg-warning text-light" value="50" step="any" name="kar-orani-inp">
+          <label id="kar-lab" hidden for="kar-inp">Kar TL</label>
+          <input id="kar-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="kar-inp">
           <label id="satis-lab" hidden for="satis-inp">Satış TL</label>
           <input id="satis-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="satis-inp">  
         </div>
@@ -85,13 +87,15 @@
     let alisInp = document.querySelector('#alis-inp');
     let kargoInp = document.querySelector('#kargo-inp');
     let paketlemeInp = document.querySelector('#paketleme-inp');
-    let komisyonyuzdesiInp = document.querySelector('#komisyon-yuzdesi-inp');
-    let gelirvergisiyuzdesiInp = document.querySelector('#gelirvergisi-yuzdesi-inp');
-    let kdvyuzdesiInp = document.querySelector('#kdv-yuzdesi-inp');
-    let kazancyuzdesiLab = document.querySelector('#kazanc-yuzdesi-lab');
-    let kazancyuzdesiInp = document.querySelector('#kazanc-yuzdesi-inp');
-    let kazancLab = document.querySelector('#kazanc-lab');
-    let kazancInp = document.querySelector('#kazanc-inp');
+    let komisyonoraniInp = document.querySelector('#komisyon-orani-inp');
+    let gelirvergisioraniInp = document.querySelector('#gelirvergisi-orani-inp');
+    let kdvoraniInp = document.querySelector('#kdv-orani-inp');
+    let karmarjiLab = document.querySelector('#kar-marji-lab');
+    let karmarjiInp = document.querySelector('#kar-marji-inp');
+    let karoraniLab = document.querySelector('#kar-orani-lab');
+    let karoraniInp = document.querySelector('#kar-orani-inp');
+    let karLab = document.querySelector('#kar-lab');
+    let karInp = document.querySelector('#kar-inp');
     let satisLab = document.querySelector('#satis-lab');
     let satisInp = document.querySelector('#satis-inp');
     let hesaplaBtn = document.querySelector('#hesapla-btn');
@@ -104,32 +108,40 @@
     */
     
     yontemSel.addEventListener('change', function() {
-      if (this.value == 'canta') {
-        kazancyuzdesiLab.hidden = true;                     
-        kazancyuzdesiInp.hidden = true; 
-        kazancLab.hidden = true;        
-        kazancInp.hidden = true;
+      if (this.value == 'kar-marji') {
+        karmarjiLab.hidden = false;
+        karmarjiInp.hidden = false;
+        karoraniLab.hidden = true;                     
+        karoraniInp.hidden = true; 
+        karLab.hidden = true;        
+        karInp.hidden = true;
         satisLab.hidden = true;
         satisInp.hidden = true;
-      } else if (this.value == 'kazanc-yuzdesi') {
-        kazancyuzdesiLab.hidden = false;                     
-        kazancyuzdesiInp.hidden = false; 
-        kazancLab.hidden = true;        
-        kazancInp.hidden = true;
+      } else if (this.value == 'kar-orani') {
+        karmarjiLab.hidden = true;
+        karmarjiInp.hidden = true;
+        karoraniLab.hidden = false;                     
+        karoraniInp.hidden = false; 
+        karLab.hidden = true;        
+        karInp.hidden = true;
         satisLab.hidden = true;
         satisInp.hidden = true;         
-      } else if (this.value == 'kazanc') {
-        kazancyuzdesiLab.hidden = true;
-        kazancyuzdesiInp.hidden = true;
-        kazancLab.hidden = false;         
-        kazancInp.hidden = false;
+      } else if (this.value == 'kar') {
+        karmarjiLab.hidden = true;
+        karmarjiInp.hidden = true;
+        karoraniLab.hidden = true;
+        karoraniInp.hidden = true;
+        karLab.hidden = false;         
+        karInp.hidden = false;
         satisLab.hidden = true;
         satisInp.hidden = true;              
       } else if (this.value == 'satis') {
-        kazancyuzdesiLab.hidden = true;
-        kazancyuzdesiInp.hidden = true; 
-        kazancLab.hidden = true;        
-        kazancInp.hidden = true;
+        karmarjiLab.hidden = true;
+        karmarjiInp.hidden = true;
+        karoraniLab.hidden = true;
+        karoraniInp.hidden = true; 
+        karLab.hidden = true;        
+        karInp.hidden = true;
         satisLab.hidden = false;
         satisInp.hidden = false;          
       }       
@@ -141,50 +153,36 @@
         let alis = Number(alisInp.value);
         let kargo =Number(kargoInp.value);
         let paketleme = Number(paketlemeInp.value);
-        let komisyonYuzdesi = Number(komisyonyuzdesiInp.value)/100;
-        let gelirvergisiYuzdesi = Number(gelirvergisiyuzdesiInp.value)/100;        
-        let kdvYuzdesi = Number(kdvyuzdesiInp.value)/100;         
-        let kazancYuzdesi = Number(kazancyuzdesiInp.value)/100;
-        let kazanc = Number(kazancInp.value);
+        let komisyonOrani = Number(komisyonoraniInp.value)/100;
+        let gelirvergisiOrani = Number(gelirvergisioraniInp.value)/100;        
+        let kdvOrani = Number(kdvoraniInp.value)/100;   
+        let karMarji = Number(karmarjiInp.value)/100;      
+        let karOrani = Number(karoraniInp.value)/100;
+        let kar = Number(karInp.value);
         let satis = Number(satisInp.value);         
         
-        // satis = kazanc + gider + gelirvergisi + kdv
-        let k = alis + kargo + paketleme - ((alis + kargo + paketleme)/(1 + kdvYuzdesi))*gelirvergisiYuzdesi - (alis + kargo + paketleme)*(1 - 1/(1 + kdvYuzdesi));
-        let m = 1 - komisyonYuzdesi - ((1 - komisyonYuzdesi)/(1 + kdvYuzdesi))*gelirvergisiYuzdesi - (1 - komisyonYuzdesi)*(1 - 1/(1 + kdvYuzdesi));
+        // satis = kar + gider + gelirvergisi + kdv
+        let k = alis + kargo + paketleme - ((alis + kargo + paketleme)/(1 + kdvOrani))*gelirvergisiOrani - (alis + kargo + paketleme)*(1 - 1/(1 + kdvOrani));
+        let m = 1 - komisyonOrani - ((1 - komisyonOrani)/(1 + kdvOrani))*gelirvergisiOrani - (1 - komisyonOrani)*(1 - 1/(1 + kdvOrani));
                
-        if (yontemSel.value == 'canta') {  
-          // f(x)=93.4506-7.210004 ln(131.966x+4.93497)
-          // desmos.com
-          let a = -0.00025, b = 0.25;
-          // kazancMarji = a*satis + b
-          // kazanc = satis*kazancMarji
-          // kazanc = a*satis*satis + b*satis        
-          // satis = (a*satis*satis + b*satis + k) / m
-          // a*satis*satis + (b - m)*satis + k = 0 
-          let rootPart = Math.sqrt((b - m)*(b - m) - 4*a*k);
-          let denom = 2*a;
-          let root1 = (-(b - m) + rootPart)/denom;                 
-          let root2 = (-(b - m) - rootPart)/denom;
-          if (root1 >= 0) {
-            satis = root1;
-          } else if (root2 >= 0) { 
-            satis = root2;
-          }
-        } else if (yontemSel.value == 'kazanc-yuzdesi') {                     
-          satis = (alis*kazancYuzdesi + k) / m;
-        } else if (yontemSel.value == 'kazanc') {                     
-          satis = (kazanc + k) / m;                                
+        if (yontemSel.value == 'kar-marji') {            
+          // satis = (karMarji*satis + k) / m
+          satis = -k / (karMarji - m);
+        } else if (yontemSel.value == 'kar-orani') {                     
+          satis = (alis*karOrani + k) / m;
+        } else if (yontemSel.value == 'kar') {                     
+          satis = (kar + k) / m;                                
         } else if (yontemSel.value == 'satis') {          
         } 
                 
         let komisyon = 0, gider = 0, gelir = 0, gelirvergisi = 0, kdv = 0;
         
-        komisyon = satis*komisyonYuzdesi;
+        komisyon = satis*komisyonOrani;
         gider = alis + kargo + paketleme + komisyon;
-        gelir = ((satis - gider)/(1 + kdvYuzdesi));
-        gelirvergisi = gelir*gelirvergisiYuzdesi;
-        kdv = (satis - gider)*(1 - 1/(1 + kdvYuzdesi)); 
-        kazanc = satis - gider - gelirvergisi - kdv;       
+        gelir = ((satis - gider)/(1 + kdvOrani));
+        gelirvergisi = gelir*gelirvergisiOrani;
+        kdv = (satis - gider)*(1 - 1/(1 + kdvOrani)); 
+        kar = satis - gider - gelirvergisi - kdv;       
         
         hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
@@ -198,8 +196,9 @@
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t' + satis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
-        hesaplaText.value += 'KAZANÇ: ' + '\t\t' + kazanc.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'KAZANÇ ORANI: ' + '\t' + (100*kazanc/alis).toFixed(2) + ' %' + '\r\n';            
+        hesaplaText.value += 'KAR: ' + '\t\t\t' + kar.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'KAR ORANI: ' + '\t\t' + (100*kar/alis).toFixed(2) + ' %' + '\r\n';
+        hesaplaText.value += 'KAR MARJI: ' + '\t\t' + (100*kar/satis).toFixed(2) + ' %' + '\r\n';            
       } 
     });   
     
