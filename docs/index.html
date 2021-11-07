@@ -182,8 +182,8 @@
         gelir = ((satis - gider)/(1 + kdvOrani));
         gelirvergisi = gelir*gelirvergisiOrani;
         kdv = (satis - gider)*(1 - 1/(1 + kdvOrani)); 
-        kar = satis - gider - gelirvergisi - kdv;       
-        
+        kar = satis - gider - gelirvergisi - kdv;      
+                
         hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
@@ -198,7 +198,7 @@
         hesaplaText.value += 'ALIŞ: ' + '\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'KAR: ' + '\t\t\t' + kar.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KAR ORANI: ' + '\t\t' + (100*kar/alis).toFixed(2) + ' %' + '\r\n';
-        hesaplaText.value += 'KAR MARJI: ' + '\t\t' + (100*kar/satis).toFixed(2) + ' %' + '\r\n';            
+        hesaplaText.value += 'KAR MARJI: ' + '\t\t' + (100*kar/satis).toFixed(2) + ' %' + '\r\n';           
       } 
     });   
     
