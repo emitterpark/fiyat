@@ -187,21 +187,20 @@
         let hakedis = satis - komisyon - kargo;
 
         hesaplaText.value += 'SATIŞ: ' + '\t\t\t ' + satis.toFixed(2) + ' TL' + '\r\n';        
-        hesaplaText.value += 'Komisyon: ' + '\t\t-' + komisyon.toFixed(2) + ' TL' + '\r\n';     
-        hesaplaText.value += 'Kargo: ' + '\t\t\t-' + kargo.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += '------------------------------------------------------' + '\r\n';
-        hesaplaText.value += 'HAKEDİŞ: ' + '\t\t ' + hakedis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Alış: ' + '\t\t\t\t-' + alis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Paketleme: ' + '\t\t-' + paketleme.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL' + '\r\n';     
+        hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += '------------------------------------------------------' + '\r\n';        
+        hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
         hesaplaText.value += 'MALİ GELİR: ' + '\t\t ' + gelir.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Gelir V.: ' + '\t\t\t-' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Gelir V.: ' + '\t\t\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Kdv: ' + '\t\t\t-' + kdv.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += '------------------------------------------------------' + '\r\n';               
         hesaplaText.value += 'KAR: ' + '\t\t\t ' + kar.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KAR ORANI: ' + '\t\t ' + (100*kar/alis).toFixed(2) + ' %' + '\r\n';
         hesaplaText.value += 'KAR MARJI: ' + '\t\t ' + (100*kar/satis).toFixed(2) + ' %' + '\r\n';    
-        
+        hesaplaText.value += 'HAKEDİŞ: ' + '\t\t ' + hakedis.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'HAKEDİŞ MARJI: ' + '\t ' + (100*kar/(hakedis)).toFixed(2) + ' %' + '\r\n';
       } 
     });   
