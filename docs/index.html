@@ -47,21 +47,21 @@
         <div class="col">
           <label for="yontem-sel">Yöntem Seçiniz</label>
           <select id="yontem-sel" class="form-control bg-warning text-light" name="yontem-sel">
-            <option value = "kar-marji" selected>Kar Marjı %</option>
+            <option value = "kar-marji">Kar Marjı %</option>
             <option value = "kar-orani">Kar Oranı %</option>
             <option value = "kar">Kar TL</option>
-            <option value = "satis">Satış TL</option>        
+            <option value = "satis" selected>Satış TL</option>        
           </select> 
         </div>
         <div class="col">
-          <label id="kar-marji-lab" for="kar-marji-inp">Kar Marjı %</label>
-          <input id="kar-marji-inp" type="number" required class="form-control bg-warning text-light" value="15" step="any" name="kar-marji-inp">
+          <label id="kar-marji-lab" hidden for="kar-marji-inp">Kar Marjı %</label>
+          <input id="kar-marji-inp" hidden type="number" required class="form-control bg-warning text-light" value="15" step="any" name="kar-marji-inp">
           <label id="kar-orani-lab" hidden for="kar-orani-inp">Kar Oranı %</label>
           <input id="kar-orani-inp" hidden type="number" required class="form-control bg-warning text-light" value="30" step="any" name="kar-orani-inp">
           <label id="kar-lab" hidden for="kar-inp">Kar TL</label>
           <input id="kar-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="kar-inp">
-          <label id="satis-lab" hidden for="satis-inp">Satış TL</label>
-          <input id="satis-inp" hidden type="number" required class="form-control bg-warning text-light" value="0" step="any" name="satis-inp">  
+          <label id="satis-lab" for="satis-inp">Satış TL</label>
+          <input id="satis-inp" type="number" required class="form-control bg-warning text-light" value="0" step="any" name="satis-inp">  
         </div>
       </div>      
       <br>
@@ -186,16 +186,17 @@
 
         let hakedis = satis - komisyon - kargo;
 
-        hesaplaText.value += 'SATIŞ: ' + '\t\t\t ' + satis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += 'Komisyon: ' + '\t\t' + komisyon.toFixed(2) + ' TL' + '\r\n';     
-        hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'Kargo: ' + '\t\t\t' + kargo.toFixed(2) + ' TL' + '\r\n';        
+        hesaplaText.value += 'Paketleme: ' + '\t\t' + paketleme.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += 'Alış: ' + '\t\t\t\t' + alis.toFixed(2) + ' TL' + '\r\n';        
         hesaplaText.value += '------------------------------------------------------' + '\r\n';
+        hesaplaText.value += 'GİDER: ' + '\t\t\t ' + gider.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'MALİ GELİR: ' + '\t\t ' + gelir.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'Gelir V.: ' + '\t\t\t' + gelirvergisi.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += 'Kdv: ' + '\t\t\t-' + kdv.toFixed(2) + ' TL' + '\r\n';
-        hesaplaText.value += '------------------------------------------------------' + '\r\n';               
+        hesaplaText.value += 'Kdv: ' + '\t\t\t' + kdv.toFixed(2) + ' TL' + '\r\n';
+        hesaplaText.value += '------------------------------------------------------' + '\r\n';  
+        hesaplaText.value += 'SATIŞ: ' + '\t\t\t ' + satis.toFixed(2) + ' TL' + '\r\n';             
         hesaplaText.value += 'KAR: ' + '\t\t\t ' + kar.toFixed(2) + ' TL' + '\r\n';
         hesaplaText.value += 'KAR ORANI: ' + '\t\t ' + (100*kar/alis).toFixed(2) + ' %' + '\r\n';
         hesaplaText.value += 'KAR MARJI: ' + '\t\t ' + (100*kar/satis).toFixed(2) + ' %' + '\r\n';    
